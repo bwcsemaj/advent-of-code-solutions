@@ -1,6 +1,7 @@
 package com.backwardscollection.driver;
 
 import java.util.Arrays;
+import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
 public class Task1 {
@@ -25,8 +26,19 @@ public class Task1 {
         System.out.println(String.format("BUS IDS: %s", busIds.toString()));
         
         // Calculate the bus to hop on next
-        var busToTake = determineBusToTake(timestamp);
-        
+        var busToMinutesFromStation = busIds.stream()
+                .collect(Collectors.toMap(UnaryOperator.identity(), busId ->
+                        calculateMinutesBusToStation(busId, timestamp)));
+        //Print Times
+        busToMinutesFromStation.forEach((busId, seconds) -> {
+            System.out.printf("BUS ID: %s MINUTES: %s\n", busId, seconds);
+        });
+        var nextBusIdToSeconds = busToMinutesFromStation.entrySet().stream().min((entry1, entry2) -> {
+            return Integer.compare(entry1.getValue(), entry2.getValue());
+        }).orElseThrow();
+        var nextBusId = nextBusIdToSeconds.getKey();
+        var minutesToBus = nextBusIdToSeconds.getValue();
+        System.out.printf("NEXT BUS ID: %s MINUTES: %s BUS ID * MINUTES = %s", nextBusId, minutesToBus, nextBusId * minutesToBus);
     }
     
     public static boolean isInteger(String s, int radix) {
@@ -47,6 +59,7 @@ public class Task1 {
     
     /**
      * Advent of code input is different for each user so instead of doing a HTTP Get I just copied
+     *
      * @return input from the advent of code (for my user)
      */
     private static String obtainInput() {
@@ -66,7 +79,17 @@ public class Task1 {
                 """;
     }
     
-    private static int determineBusToTake(int timestamp){
-    
+    /**
+     * Buses come and go at certain intervals
+     * To determine when the next bus will come we take the timestamp % busId
+     * which will determine when that bus will be at the station again in minutes
+     * lower the amount
+     *
+     * @param busId     : id of the Bus (which is used for when bus will be located at station)
+     * @param timestamp : current time
+     * @return minutes at which the bus will be at the station again
+     */
+    private static int calculateMinutesBusToStation(int busId, int timestamp) {
+        return busId - (timestamp % busId);
     }
 }
