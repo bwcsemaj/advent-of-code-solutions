@@ -25,7 +25,7 @@ public class Task1 {
         System.out.println(String.format("BUS IDS: %s", busIds.toString()));
         
         // Calculate the bus to hop on next
-        
+        var busToTake = determineBusToTake(timestamp);
         
     }
     
@@ -45,6 +45,10 @@ public class Task1 {
         return true;
     }
     
+    /**
+     * Advent of code input is different for each user so instead of doing a HTTP Get I just copied
+     * @return input from the advent of code (for my user)
+     */
     private static String obtainInput() {
 //        var client = HttpClient.newHttpClient();
 //        var request = HttpRequest.newBuilder()
@@ -62,7 +66,7 @@ public class Task1 {
                 """;
     }
     
-    private int determineBusToTake(int timeStamp){
+    private static int determineBusToTake(int timestamp){
     
     }
 }
