@@ -11,17 +11,18 @@ public class Task1 {
     
     public static void main(String[] args) {
         
-        
         // Obtain Input
         var input = obtainInput();
         
         // Convert Input into usable model objects
         var inputParts = input.split("\n");
-        var timestamp = inputParts[TIME_STAMP];
+        var timestamp = Integer.valueOf(inputParts[TIME_STAMP]);
         var busIds = Arrays.stream(inputParts[BUS_IDS].split(","))
                 .filter(value -> isInteger(value, DEFAULT_RADIX))
                 .map(Integer::valueOf)
                 .collect(Collectors.toList());
+        System.out.println(String.format("TIME STAMP: %s", timestamp));
+        System.out.println(String.format("BUS IDS: %s", busIds.toString()));
         
         // Calculate the bus to hop on next
         
@@ -59,5 +60,9 @@ public class Task1 {
                 1006605
                 19,x,x,x,x,x,x,x,x,x,x,x,x,37,x,x,x,x,x,883,x,x,x,x,x,x,x,23,x,x,x,x,13,x,x,x,17,x,x,x,x,x,x,x,x,x,x,x,x,x,797,x,x,x,x,x,x,x,x,x,41,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,29
                 """;
+    }
+    
+    private int determineBusToTake(int timeStamp){
+    
     }
 }
