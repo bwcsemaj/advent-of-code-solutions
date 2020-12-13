@@ -8,9 +8,9 @@ import java.util.stream.Collectors;
 
 public class Task1 {
     
-    private static final int TIME_STAMP = 0;
-    private static final int BUS_IDS = 1;
-    private static final int DEFAULT_RADIX = 10;
+    public static final int TIME_STAMP = 0;
+    public static final int BUS_IDS = 1;
+    public static final int DEFAULT_RADIX = 10;
     
     public static void main(String[] args) {
         
@@ -62,7 +62,7 @@ public class Task1 {
      *
      * @return input from the advent of code (for my user)
      */
-    private static String obtainInput() {
+    public static String obtainInput() {
 //        var client = HttpClient.newHttpClient();
 //        var request = HttpRequest.newBuilder()
 //                .uri(URI.create("https://adventofcode.com/2020/day/13/input"))
@@ -89,7 +89,7 @@ public class Task1 {
      * @param timestamp : current time
      * @return minutes at which the bus will be at the station again
      */
-    private static int calculateMinutesBusToStation(int busId, int timestamp) {
+    public static int calculateMinutesBusToStation(int busId, int timestamp) {
         return busId - (timestamp % busId);
     }
 }
