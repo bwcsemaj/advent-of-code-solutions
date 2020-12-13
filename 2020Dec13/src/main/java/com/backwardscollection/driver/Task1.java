@@ -1,6 +1,8 @@
 package com.backwardscollection.driver;
 
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Map;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
@@ -33,9 +35,7 @@ public class Task1 {
         busToMinutesFromStation.forEach((busId, seconds) -> {
             System.out.printf("BUS ID: %s MINUTES: %s\n", busId, seconds);
         });
-        var nextBusIdToSeconds = busToMinutesFromStation.entrySet().stream().min((entry1, entry2) -> {
-            return Integer.compare(entry1.getValue(), entry2.getValue());
-        }).orElseThrow();
+        var nextBusIdToSeconds = busToMinutesFromStation.entrySet().stream().min(Comparator.comparingInt(Map.Entry::getValue)).orElseThrow();
         var nextBusId = nextBusIdToSeconds.getKey();
         var minutesToBus = nextBusIdToSeconds.getValue();
         System.out.printf("NEXT BUS ID: %s MINUTES: %s BUS ID * MINUTES = %s", nextBusId, minutesToBus, nextBusId * minutesToBus);
